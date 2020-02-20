@@ -2125,11 +2125,11 @@ def replaceInternalLinks(text):
             end = e
         inner = text[s + 2:e - 2]
         # find first |
-        pipe = min(inner.find(':'), inner.find('/'))
+        pipe = max(inner.find(':'), inner.find('/'))
         if pipe < 0:
-        	return text[:s] + text[e:]
-        else:
         	return text
+        else:
+        	return text[:s] + text[e:]
 
 
 # the official version is a method in class Parser, similar to this:
