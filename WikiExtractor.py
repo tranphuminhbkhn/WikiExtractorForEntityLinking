@@ -2116,20 +2116,14 @@ def replaceInternalLinks(text):
     cur = 0
     res = ''
     for s, e in findBalanced(text):
-        m = tailRE.match(text, e)
-        if m:
-            trail = m.group(0)
-            end = m.end()
-        else:
-            trail = ''
-            end = e
         inner = text[s + 2:e - 2]
-        # find first |
         pipe = max(inner.find(':'), inner.find('/'))
         if pipe < 0:
-        	return text
+        	res += text[cur:e]
         else:
-        	return text[:s] + text[e:]
+        	res += text[cur:s]
+        cur = e
+    return res + text[cur:]
 
 
 # the official version is a method in class Parser, similar to this:
